@@ -27,12 +27,13 @@ public final class JSModule {
         return name.startsWith("http://") || name.startsWith("https://") || name.startsWith("assets://");
     }
 
-    static String convertModuleName(String moduleBaseName, String moduleName) {
+    public static String convertModuleName(String moduleBaseName, String moduleName) {
         if (moduleName == null || moduleName.length() == 0) {
             return moduleName;
         }
-        if (!isRemote(moduleName))
-            moduleName = moduleName.replace("//", "/");
+        if (isRemote(moduleName))
+            return moduleName;
+        moduleName = moduleName.replace("//", "/");
         if (moduleName.startsWith("./")) {
             moduleName = moduleName.substring(2);
         }
